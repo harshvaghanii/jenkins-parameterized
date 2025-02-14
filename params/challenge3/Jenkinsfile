@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+
+    parameters {
+        string(
+            defaultValue: 'Input_Name',
+            description: 'Please enter name for deployment',
+            name: 'deploymentName'
+        )
+
+        choice(
+            choices: [
+                'EU-WEST-2A',
+                'EU-WEST-2B',
+                'EU-WEST-2C'
+            ],
+            description: 'Please select the deployment server',
+            name: 'deploymentServer'
+        )
+
+        booleanParam(
+            defaultValue: false,
+            description: 'Confirm Deployment?',
+            name: 'confirmDeployment'
+        )
+    }
+
+    stages {
+        stage('Demo') {
+            steps {
+                echo 'This is the Demo stage'
+            }
+        }
+
+        stage('Build Stage') {
+            steps {
+                echo "This is the build stage. The deployment name is: ${params.deploymentName} The deployment server is: ${params.deploymentServer} The confirmation of deployment is: ${params.confirmDeployment}"
+            }
+        }
+    }
+}

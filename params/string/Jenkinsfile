@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    parameters {
+        string(defaultValue : 'TEST',
+        description: 'Determine the type of environment',
+        name : 'myStringParam')
+    }
+
+    stages {
+        stage('Demo') {
+            steps {
+                echo 'This is the Demo Stage!'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo "This is the build stage with the param value set to ${params.myStringParam}"
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+
+    parameters {
+        booleanParam(defaultValue: false,
+        description: 'This is a boolean param to test to enable services',
+        name: 'myBooleanParam')
+    }
+
+    stages {
+        stage('Demo') {
+            steps {
+                echo "booleanParam is set to: ${params.myBooleanParam}"
+            }
+        }
+    }
+}
