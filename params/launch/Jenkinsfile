@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+
+    parameters {
+        booleanParam(
+            name: 'serviceFlag',
+            description: 'Feature flag to enable the service',
+            defaultValue: false
+        )
+    }
+
+    stages {
+        stage('Demo') {
+            steps {
+                echo 'Starting the app, this is the demo stage!...'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    if (params.serviceFlag) {
+                        echo "Flag is enabled with the value ${params.serviceFlag}. The flag has been activated successfully!"
+                } else {
+                        currentBuild.result = 'SUCCESS'
+                        echo 'Returning with a successful build, the flag was disabled!. Please enable it to activate the feature flag!'
+                    }
+                }
+            }
+        }
+
+        stage('Success') {
+            steps {
+                echo 'Successfully completed the build!'
+            }
+        }
+    }
+}
